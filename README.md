@@ -1,1 +1,1 @@
-# rockPaperSciss
+This is a task where I build a rock paper scissors game.
