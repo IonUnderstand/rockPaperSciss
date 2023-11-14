@@ -4,39 +4,34 @@ function getComputerChoice(){
     console.log("Computer chose " + options[choose]);
     return options[choose];
 }
-
-function getUserChoice(){
-    const select = prompt("Rock, Paper or Scissors?").toLowerCase();
-    if(select == "rock" || select == "scissors" || select == "paper"){
-        console.log("You chose " + select);
-        return select;
-    }
-    else{
-        console.log("Invalid option, please try again")
-        return getUserChoice();
-    }
-}
-
-function playRound(player, computer) {
+document.addEventListener('DOMContentLoaded', (event) => {
+    document.getElementById("rock").addEventListener("click", () => playRound("rock"));
+    document.getElementById("paper").addEventListener("click", () => playRound("paper"));
+    document.getElementById("scissors").addEventListener("click", () => playRound("scissors"));
+});
+function playRound(player) {
+    let computer = getComputerChoice();
     if (player == computer) {
-        return "You tied the round.";
+        result = "You tied the round.";
     }
     else if (
         (player == "rock" && computer == "scissors") ||
         (player == "paper" && computer == "rock") ||
         (player == "scissors" && computer == "paper")
     ) {
-        return "You won the round.";
+        result = "You won the round.";
     }
     else{
-        return "You lost the round.";
+        result = "You lost the round.";
     }
+    const res = document.querySelector('#result');
+    res.textContent = result;
+    result.appendChild(res);
 }
 
 function game(){
     let pScore = 0;
     let cScore = 0;
-    for (i = 0; i < 5; i++) {
         const playerSelection = getUserChoice();
         const computerSelection = getComputerChoice();
         const result = playRound(playerSelection, computerSelection);
@@ -47,7 +42,6 @@ function game(){
         else if(result == "You lost the round."){
             cScore++;
         }
-    }
     if(pScore > cScore){
         console.log("You won the game, congrats");
     }
@@ -58,4 +52,3 @@ function game(){
         console.log("There are no losers in life");
     }
 }
-game();
