@@ -1,3 +1,6 @@
+let pScore = 0;
+let cScore = 0;
+
 function getComputerChoice(){
     const options = ["rock","paper","scissors"];
     const choose = Math.floor(Math.random() * options.length);
@@ -20,35 +23,36 @@ function playRound(player) {
         (player == "scissors" && computer == "paper")
     ) {
         result = "You won the round.";
+        pScore++;
     }
     else{
         result = "You lost the round.";
+        cScore++;
     }
     const res = document.querySelector('#result');
-    res.textContent = result;
-    result.appendChild(res);
+    res.textContent ='Computer chose ' + computer + '.' + result;
+    const ann = document.querySelector('#rounds');
+    ann.textContent = 'You have ' + pScore + ' win(s) and the robot has ' + cScore + 
+    ' , the first to five wins the game.';
+    announce(pScore, cScore);
 }
-
-function game(){
-    let pScore = 0;
-    let cScore = 0;
-        const playerSelection = getUserChoice();
-        const computerSelection = getComputerChoice();
-        const result = playRound(playerSelection, computerSelection);
-        console.log(result);
-        if(result == "You won the round."){
-            pScore++;
+function announce(p,c){
+    if(p >= 5 || c >= 5){
+        if(p > c){
+            const win = document.querySelector('#end');
+            win.textContent = 'YOU WON THE PREVIOUS ROUND!!';
+            pScore = 0;
+            cScore = 0;
+            res.textContent = '';
+            ann.textContent = '';
         }
-        else if(result == "You lost the round."){
-            cScore++;
+        else{
+            const win = document.querySelector('#end');
+            win.textContent = 'YOU LOST THE PREVIOUS ROUND!!';
+            pScore = 0;
+            cScore = 0;
+            res.textContent = '';
+            ann.textContent = '';
         }
-    if(pScore > cScore){
-        console.log("You won the game, congrats");
-    }
-    else if(pScore < cScore){
-        console.log("You lost the game,better luck next time");
-    }
-    else{
-        console.log("There are no losers in life");
     }
 }
